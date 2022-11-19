@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { getCategoryNames } from "./utils/index";
 import "./Right.css";
 
 function Right() {
   const [movies, setMovies] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const [genreTitle, setGenreTitle] = useState('');
+  const [genreTitle, setGenreTitle] = useState("");
   const genres = useSelector((state) => state.genres);
   const { genreId } = useParams();
+  const genreRef = useRef(genreId);
+
   useEffect(() => {
-    
-    const genre = genres.find((item) => item.id == genreId)
+    const genre = genres.find((item) => item.id == genreId);
     setGenreTitle(genre?.name);
-    console.log(genres,genre)
+    console.log(genreId,genreRef.current);
     fetch(
       `https://api.themoviedb.org/3/discover/movie?api_key=${
         process.env.REACT_APP_API_KEY
@@ -23,9 +25,20 @@ function Right() {
       }`
     )
       .then((response) => response.json())
-      .then((json) => setMovies(json.results));
-  }, [genreId,pageNumber ]);
+      .then((json) => {
+        if(genreId==genreRef.current){
+          setMovies([...movies, ...json.results])
+        }
+        else{
+          setMovies(json.results);
+          genreRef.current = genreId;
+        }
+        });
+  }, [genreId, pageNumber]);
   console.log(movies);
+  const loadMore = () => {
+    setPageNumber(pageNumber + 1);
+  };
   return (
     <div className="right-container-wrapper">
       <div className="right-container">
@@ -45,7 +58,9 @@ function Right() {
                 <Link to={`/movie/${item.id}`}>
                   <p className="title">{item.title}</p>
                 </Link>
-                <p className="about">{item.genre_ids}</p>
+                <p className="about">
+                  {getCategoryNames(genres, item.genre_ids).join(", ")}
+                </p>
                 <p className="story">{item.overview}</p>
                 <button className="but-favorites">Favorites</button>
               </div>
@@ -53,6 +68,9 @@ function Right() {
           ))}
         </div>
       </div>
+      <button className="button-end" onClick={() => loadMore()}>
+        Load More
+      </button>
     </div>
   );
 }
