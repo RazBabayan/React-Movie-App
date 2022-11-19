@@ -1,0 +1,37 @@
+.movie_cart{
+    width: 1050px;
+    border-radius: 30px;
+    background-color: orange;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 50px;
+    /* box-shadow: 10px 30px  orange; */
+    /* border: 1px solid orange; */
+ }
+ .Movie-container-wrapper{
+    background-color: black;
+    width: 100%;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+
+ .movie_picture img{
+    width: 100%;
+
+ }
+ 
+ .movie_info{
+    margin: 20px;
+ }
+ 
+ .but_favorites{
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    width: 85px;
+    height: 25px;
+    font-size: 11px;
+    border: none;
+ }

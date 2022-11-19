@@ -1,0 +1,41 @@
+
+.movie-cart{
+   width: 350px;
+   /* border: 1px solid orange; */
+   background-color: orange;
+   border-radius: 10px;
+   margin-top: 20px;
+}
+.movies-wrapper{
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-evenly;
+}
+
+.movie-picture img{
+   width: 100%;
+   border-radius: 10px 10px 0 0;
+}
+
+.movie-info p{
+   margin: 20px;
+   color: black;
+}
+
+.but-favorites{
+   color: white;
+   background-color: rgb(128, 4, 245);
+   border-radius: 10px;
+   width: 85px;
+   height: 25px;
+   font-size: 11px;
+   border: none;
+}
+
+.genre-name p{
+   color: aliceblue;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 30px;
+}
